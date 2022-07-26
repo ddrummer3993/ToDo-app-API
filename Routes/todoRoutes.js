@@ -56,6 +56,14 @@ router.put('/:itemNum', (req, res) => {
     res.status(201).send('Update Complete.')
 })
 
+// DELETE - DELETE request
+router.delete('/:itemNum', (req, res) => {
+    const itemNum = req.params.itemNum;
+    tasksCollection
+     .deleteOne({ itemNum: `${itemNum}` })
+     .catch((error) => console.error(error));
+    res.status(201).send('Delete Complete.');
+   });
 
 })
 .catch(error => console.error(error));
