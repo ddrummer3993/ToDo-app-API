@@ -1,5 +1,5 @@
 import express from 'express';
-import { default as mongodb } from 'mongodb';
+import { default as mongodb, ObjectId } from 'mongodb';
 
 const router = express.Router();
 let MongoClient = mongodb.MongoClient;
@@ -58,10 +58,11 @@ router.put('/:itemNum', (req, res) => {
 })
 
 // DELETE - DELETE request
-router.delete('/:_id', (req, res) => {
-    const taskID = req.params._id;
+router.delete('/:id', (req, res) => {
+    const taskID = req.params.id;
+    console.log(taskID);
     tasksCollection
-     .deleteOne({ _id: `${taskID}` })
+     .deleteOne({ _id: ObjectId(taskID) })
      .then(result => {
         console.log(result);
         res.send(result);
