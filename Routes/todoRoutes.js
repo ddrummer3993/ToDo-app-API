@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
     const cursor = db.collection('tasks').find().toArray()
     .then(result => {
         console.log(result);
-        res.status(201).send("GET success");
+        res.status(201).send(result);
     })
     .catch(error => console.error(error))
 })
