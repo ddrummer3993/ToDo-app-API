@@ -58,10 +58,10 @@ router.put('/:itemNum', (req, res) => {
 })
 
 // DELETE - DELETE request
-router.delete('/:itemNum', (req, res) => {
-    const itemNum = req.params.itemNum;
+router.delete('/:_id', (req, res) => {
+    const taskID = req.params._id;
     tasksCollection
-     .deleteOne({ itemNum: `${itemNum}` })
+     .deleteOne({ _id: `${taskID}` })
      .then(result => {
         console.log(result);
         res.send(result);
