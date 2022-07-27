@@ -18,12 +18,12 @@ const tasksCollection = db.collection('tasks');
 router.post('/', (req, res) => {
     const task = req.body;
     tasksCollection.insertOne(task)
-    .then(res => {
+    .then(result => {
         console.log(task);
+        console.log(result);
+        res.send(result);
     })
     .catch(error => console.error(error))
-
-    res.status(201).send("POST success");
 })
 
 // READ - GET request
@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
     const cursor = db.collection('tasks').find().toArray()
     .then(result => {
         console.log(result);
-        res.status(201).send(result);
+        res.send(result);
     })
     .catch(error => console.error(error))
 })
@@ -49,11 +49,12 @@ router.put('/:itemNum', (req, res) => {
     },
     {
         upsert: true
-    }
-    )
+    })
+    .then(result => {
+        console.log(result);
+        res.send(result);
+    })
     .catch(error => console.error(error));
-
-    res.status(201).send('Update Complete.')
 })
 
 // DELETE - DELETE request
@@ -61,8 +62,11 @@ router.delete('/:itemNum', (req, res) => {
     const itemNum = req.params.itemNum;
     tasksCollection
      .deleteOne({ itemNum: `${itemNum}` })
+     .then(result => {
+        console.log(result);
+        res.send(result);
+     })
      .catch((error) => console.error(error));
-    res.status(201).send('Delete Complete.');
    });
 
 })
