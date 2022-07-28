@@ -1,7 +1,9 @@
-export function checkRequiredFields(req, res, next) {
-    const task = req.body;
-  
-    if (!isValidRequiredField(task)) {
+export function checkTask(req, res, next) {
+    const task = req.body.task;
+    console.log(task);
+    console.log(isValidTask(task))
+
+    if (!isValidTask(task)) {
       return res
         .status(400)
         .send({
@@ -13,7 +15,7 @@ export function checkRequiredFields(req, res, next) {
     next();
   }
   
-  export function isValidRequiredField(field) {
+  export function isValidTask(field) {
     if (!field || typeof field !== "string" || field.length == 0) {
       return false;
     }
