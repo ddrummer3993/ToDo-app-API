@@ -1,5 +1,6 @@
 import express from 'express';
 import { default as mongodb, ObjectId } from 'mongodb';
+import { checkTask } from '../utility-funcs/validator.js'
 
 const router = express.Router();
 let MongoClient = mongodb.MongoClient;
@@ -15,7 +16,7 @@ const db = client.db('taskList');
 const tasksCollection = db.collection('tasks');
 
 // CREATE - POST request
-router.post('/', (req, res) => {
+router.post('/', checkTask, (req, res) => {
     const task = req.body;
     tasksCollection.insertOne(task)
     .then(result => {
