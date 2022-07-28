@@ -37,13 +37,12 @@ router.get('/', (req, res) => {
 })
 
 // UPDATE - PUT request
-router.put('/:itemNum', (req, res) => {
-    const itemNum = req.body.itemNum
+router.put('/:id', (req, res) => {
+    const taskID = req.params.id
     tasksCollection.findOneAndUpdate(
-    { itemNum: `${itemNum}` },
+    { _id: ObjectId(taskID) },
     {
         $set: {
-        itemNum: req.body.itemNum,
         task: req.body.task
         }
     },
